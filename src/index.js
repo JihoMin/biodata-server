@@ -27,9 +27,9 @@ const routes = require('./routes');
 
 app.use('/', routes);
 
-
-app.listen(80, () => {
-    console.log('listning on port 80');
+port = 9000;
+app.listen(port, () => {
+    console.log('listning on port', port);
 });
 
 module.exports = app;
