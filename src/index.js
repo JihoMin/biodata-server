@@ -28,8 +28,8 @@ const routes = require('./routes');
 app.use('/', routes);
 
 
-app.listen(8080, () => {
-    console.log('listning on port 8080');
+app.listen(80, () => {
+    console.log('listning on port 80');
 });
 
 module.exports = app;
