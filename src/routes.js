@@ -35,7 +35,11 @@ router.post('/', async (req, res) => {
 router.post('/single-file', upload.single('file'), async (req, res) => {
     var bufferStream = new stream.PassThrough();
     bufferStream.end(req.file.buffer);
-    await HIGHBP.openCSV(bufferStream);
+    try{
+        await HIGHBP.openCSV(bufferStream);
+    } catch(err) {
+        res.send(err)
+    }
     res.sendStatus(200);
 })
 
