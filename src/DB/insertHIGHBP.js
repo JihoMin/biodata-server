@@ -79,7 +79,7 @@ const insertData2 = async (fields, data) => {
         const connection = await pool.getConnection(async conn => conn);
         try {
             //console.log(fields.toString())
-            query = 'INSERT INTO KOGES('+fields.toString()+')'+' VALUES ?'+' ON DUPLICATE KEY UPDATE SEX=VALUES(SEX)';
+            query = 'INSERT IGNORE INTO KOGES('+fields.toString()+')'+' VALUES ?';
             connection.query(query, [data]);
         } catch(err) {
             //console.log(err);
