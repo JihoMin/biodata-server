@@ -9,7 +9,7 @@ var pool = mysql.createPool({
     host: MYSQL_URL,
     user: MYSQL_ID,
     password: MYSQL_PWD,
-    database: "blab"
+    database: "서울대병원"
 });
 
 const type =[
@@ -79,7 +79,7 @@ const insertData2 = async (fields, data) => {
         const connection = await pool.getConnection(async conn => conn);
         try {
             //console.log(fields.toString())
-            query = 'INSERT INTO blab('+fields.toString()+')'+' VALUES ?'+' ON DUPLICATE KEY UPDATE SEX=VALUES(SEX)';
+            query = 'INSERT INTO KOGES('+fields.toString()+')'+' VALUES ?'+' ON DUPLICATE KEY UPDATE SEX=VALUES(SEX)';
             connection.query(query, [data]);
         } catch(err) {
             //console.log(err);
@@ -104,7 +104,7 @@ const openCSV = function (stream) {
             console.log(alldata.length);
             
             var createQuery = 
-            'create table if not exists blab( '+
+            'create table if not exists KOGES( '+
             alldata[2][0]+' '+alldata[1][0]+' primary key,';
 
             for(var i = 1; i<alldata[0].length; i++){
@@ -113,7 +113,7 @@ const openCSV = function (stream) {
             createQuery = createQuery.substr(0, createQuery.length-1)+" )";
             createSchema(createQuery)
             .then( () => {
-                for(var i = 3; i<alldata.length; i++){
+                for(var i = 3; i<30; i++){
                     var row = [];
                     row.push(alldata[i][0]);
                     createType(type, row, alldata[i]).then((parsed) => {

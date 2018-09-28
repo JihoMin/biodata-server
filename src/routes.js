@@ -13,7 +13,7 @@ var pool = mysql.createPool({
     host: MYSQL_URL,
     user: MYSQL_ID,
     password: MYSQL_PWD,
-    database: "blab"
+    database: "서울대병원"
 });
 
 const router = express.Router();
@@ -55,7 +55,7 @@ const getHIGHBP = async () => {
     try{
         const connection = await pool.getConnection(async conn => conn);
         try{
-            const [rows] = await connection.query('SELECT NIHID, SEX, AGE, JOB, HEIGHT, WEIGHT, BMI FROM blab LIMIT 50');
+            const [rows] = await connection.query('SELECT NIHID, SEX, AGE, JOB, HEIGHT, WEIGHT, BMI FROM KOGES LIMIT 50');
             connection.release();
             return rows;
         } catch(err) {
