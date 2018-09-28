@@ -113,7 +113,7 @@ const openCSV = function (stream) {
             createQuery = createQuery.substr(0, createQuery.length-1)+" )";
             createSchema(createQuery)
             .then( () => {
-                for(var i = 3; i<30; i++){
+                for(var i = 3; i<alldata.length; i++){
                     var row = [];
                     row.push(alldata[i][0]);
                     createType(type, row, alldata[i]).then((parsed) => {
