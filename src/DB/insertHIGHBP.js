@@ -98,7 +98,7 @@ const openCSV = function (stream) {
         .on("data", function(data){
             //console.log(data);
             alldata.push(data);
-            //console.log(alldata);
+            console.log(alldata);
         })
         .on("end", function () {
             console.log(alldata.length);
