@@ -19,7 +19,7 @@ var pool = mysql.createPool({
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    const collection = await loadMicroPostsCollection();
+    const collection = await getHIGHBP();
     console.log(collection);
     res.send(
         collection
