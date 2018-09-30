@@ -20,7 +20,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     const collection = await getHIGHBP();
-    console.log(collection);
+    //console.log(collection);
     res.send(
         collection
     )
