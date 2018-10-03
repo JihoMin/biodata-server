@@ -11,7 +11,7 @@ var pool = mysql.createPool({
     host: MYSQL_URL,
     user: MYSQL_ID,
     password: MYSQL_PWD,
-    database: "testDB",
+    database: "서울대병원",
     charset: "utf8",
 });
 
@@ -222,8 +222,11 @@ const openXlsx = async (file) => {
                     })
                 
             })
+        return 200;
+
     } catch(err) {
         console.log(err)
+        return 400;
     }
 }
 
