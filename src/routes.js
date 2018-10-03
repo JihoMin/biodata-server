@@ -47,12 +47,14 @@ router.post('/', async (req, res) => {
 router.post('/single-file', upload.single('file'), async (req, res) => {
     try{
         console.log("hey")
-        let status = await XLSX.openXlsx(req.file.buffer);
-        console.log('status: ', status);
-        if(status == 200)
+        XLSX.openXlsx(req.file.buffer).then(s => {
+            console.log('status: ', s);
+            if(status == 200)
             res.send(status);
         else
-            res.send(status)
+            res.send(status);
+        });
+        
     } catch(err) {
         console.log(err)
         res.send(err)
