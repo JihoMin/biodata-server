@@ -33,11 +33,20 @@ router.post('/', async (req, res) => {
     res.status(200).send();
 });
 
+// router.post('/single-file', upload.single('file'), async (req, res) => {
+//     var bufferStream = new stream.PassThrough();
+//     bufferStream.end(req.file.buffer);
+//     try{
+//         await HIGHBP.openCSV(bufferStream);
+//     } catch(err) {
+//         res.send(err)
+//     }
+//     res.sendStatus(200);
+// })
+
 router.post('/single-file', upload.single('file'), async (req, res) => {
-    var bufferStream = new stream.PassThrough();
-    bufferStream.end(req.file.buffer);
     try{
-        await HIGHBP.openCSV(bufferStream);
+        await HIGHBP.openXlsx(req.file);
     } catch(err) {
         res.send(err)
     }
