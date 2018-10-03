@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require("mysql2/promise");
 const multer = require('multer');
 const HIGHBP = require('./DB/insertHIGHBP');
+const XLSX = require('./DB/insertXLSX');
 const fs = require('fs');
 const stream = require('stream');
 let upload = multer();
@@ -43,6 +44,15 @@ router.post('/single-file', upload.single('file'), async (req, res) => {
     res.sendStatus(200);
 })
 
+router.post('/xlsx', upload.single('file'), async (req, res) => {
+    try{
+        await HIGHBP.openXlsx(req.file);
+    } catch(err) {
+        res.send(err)
+    }
+    res.sendStatus(200);
+})
+
 router.get('/HIGHBP', async (req, res) => {
     const data = await getHIGHBP();
     console.log(data);
@@ -50,6 +60,7 @@ router.get('/HIGHBP', async (req, res) => {
         data
     )
 })
+
 
 const getHIGHBP = async () => {
     try{
