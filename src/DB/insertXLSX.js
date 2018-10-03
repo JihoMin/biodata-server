@@ -219,19 +219,22 @@ const openXlsx = async (file) => {
                             .then( () => {
                                 makeInsertForm(usedSheet);
                             }).catch(err =>{
+                                console.log(err, '1')
                                 return err;
                             })
                     }).catch(err => {
+                        console.log(err, '2')
                         return err;
                     })
                 
             }).catch(err => {
+                console.log(err, '3')
                 return err;
             })
         return 200;
 
     } catch(err) {
-        console.log(err)
+        console.log(err, 4)
         return 400;
     }
 }
