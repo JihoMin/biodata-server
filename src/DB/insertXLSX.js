@@ -218,9 +218,15 @@ const openXlsx = async (file) => {
                         writeSchema(sheet1, tN)
                             .then( () => {
                                 makeInsertForm(usedSheet);
+                            }).catch(err =>{
+                                return err;
                             })
+                    }).catch(err => {
+                        return err;
                     })
                 
+            }).catch(err => {
+                return err;
             })
         return 200;
 
