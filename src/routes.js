@@ -54,6 +54,7 @@ router.post('/single-file', upload.single('file'), async (req, res) => {
         else
             res.send(status)
     } catch(err) {
+        console.log(err)
         res.send(err)
     }
     
