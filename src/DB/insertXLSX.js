@@ -11,7 +11,7 @@ var pool = mysql.createPool({
     host: MYSQL_URL,
     user: MYSQL_ID,
     password: MYSQL_PWD,
-    database: "서울대병원",
+    database: "testDB",
     charset: "utf8",
 });
 
