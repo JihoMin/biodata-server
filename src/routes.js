@@ -47,6 +47,8 @@ router.post('/', async (req, res) => {
 router.post('/single-file', upload.single('file'), async (req, res) => {
     try{
         console.log("hey")
+        console.log(req.file)
+        console.log(req.file.path)
         await HIGHBP.openXlsx(req.file);
         res.sendStatus(200);
     } catch(err) {
