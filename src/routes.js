@@ -113,7 +113,7 @@ const getHIGHBP = async () => {
     try{
         const connection = await pool.getConnection(async conn => conn);
         try{
-            const [rows] = await connection.query('SELECT NIHID, SEX, AGE, JOB, HEIGHT, WEIGHT, BMI FROM KOGES LIMIT 50');
+            const [rows] = await connection.query('SELECT NIHID, SEX, AGE, JOB, HEIGHT, WEIGHT, BMI FROM HIGBP LIMIT 50');
             connection.release();
             return rows;
         } catch(err) {
