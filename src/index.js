@@ -22,7 +22,7 @@ app.use(morgan('combined'));
 
 // ... other require statements
 var rscript = require('./routes/rscripts');
-const routes = require('./route');
+const routes = require('./routes/route');
 
 // express app definition and middleware config
 
