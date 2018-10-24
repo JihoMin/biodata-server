@@ -172,13 +172,13 @@ const getSNU = async () => {
                 ON 문진.바코드 = 혈액_소변_대변.바코드 AND 문진.날짜 = 혈액_소변_대변.날짜;`
             );
             connection.release();
-            console.log(rows)
+            // console.log(rows)
             return rows;
         } catch(err) {
-            console.log(err);
+            // console.log(err);
         }
     } catch(err) {
-        console.log(err);
+        // console.log(err);
     }
 }
 
