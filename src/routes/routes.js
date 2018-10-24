@@ -141,7 +141,12 @@ router.get('/summary', async (req, res) => {
     const NAFLD = await getQuery(na);
     const dang = await getQuery(da);
 
-    console.log (supercontrol, NAFLD, dang);
+    summary.append(supercontrol);
+    summary.append(NAFLD);
+    summary.append(dang);
+
+    console.log (summary);
+    res.send(summary)
 })
 
 const getQuery = async (q) => {

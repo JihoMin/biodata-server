@@ -12,9 +12,9 @@ const { MYSQL_URL, MYSQL_ID, MYSQL_PWD } = process.env;
 
 // create DB pool
 var pool = mysql.createPool({
-    host: "biodatalab.czadlpaqcfqu.ap-northeast-2.rds.amazonaws.com",
-    user: "blab",
-    password: "biodatalab!",
+    host: MYSQL_URL,
+    user: MYSQL_ID,
+    password: MYSQL_PWD,
     database: "서울대병원"
 });
 
@@ -54,8 +54,8 @@ router.post('/', async (req,res) => {
     var a = data
     var b = [['fsf','fsdf'],['fdfs','sdf']]
 
-    console.log('a,b: ',a,b)
-    console.log(process.cwd())
+    // console.log('a,b: ',a,b)
+    // console.log(process.cwd())
     var dir = process.cwd()+'/src/rscripts/log_wrapper.R'
     var cmd = 'Rscript ' + dir + " " + a + " " + b;
 
