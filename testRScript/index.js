@@ -21,13 +21,14 @@ app.use(cors());
 app.use(morgan('combined'));
 
 // ... other require statements
-var rscript = require('./routes/rscripts');
-const routes = require('./route');
+const routes = require('./routes/routes');
 
 // express app definition and middleware config
 
+
+var rscript = require('./routes/rscripts');
+app.use('/rscipt', rscript);
 app.use('/', routes);
-app.use('/rscript', rscript);
 
 port = 80;
 app.listen(port, () => {

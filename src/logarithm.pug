@@ -1,0 +1,16 @@
+html
+    head
+        title #{title}
+    body
+        form(action="/rscript", method="POST")
+            div
+                h2 Calculate Log_a_b
+            div
+                label(for="a") a : &nbsp
+                input(name="a" type="number")
+            br
+            div
+                label(for="b") b : &nbsp
+                input(name="b" type="number")
+            br
+            button(type="submit") Calculate
