@@ -122,13 +122,13 @@ router.get('/summary', async (req, res) => {
     FROM 혈액_소변_대변 a		
         INNER JOIN 문진 b ON a.바코드 = b.바코드 AND a.날짜 = b.날짜	
     WHERE		
-    a.GLUCOSE < 100 AND HbA1c < 5.7 AND b.당뇨=null AND b.당뇨_투약중 = 0 OR b.당뇨_투약중=null)		
+    a.GLUCOSE < 100 AND HbA1c < 5.7 AND (b.당뇨=0 OR b.당뇨 is null) AND (b.당뇨_투약중 = 0 OR b.당뇨_투약중 is null))		
     AS 정상,		
     (SELECT count(*)		
     FROM 혈액_소변_대변 a		
         INNER JOIN 문진 b ON a.바코드 = b.바코드 AND a.날짜 = b.날짜	
     WHERE		
-    a.GLUCOSE >= 100 AND a.GLUCOSE <= 125 AND HbA1c < 5.7 AND b.당뇨 = 0 OR b.당뇨=null AND b.당뇨_투약중 = 0 OR b.당뇨_투약중=null)		
+    a.GLUCOSE >= 100 AND a.GLUCOSE <= 125 AND HbA1c < 5.7 AND (b.당뇨 = 0 OR b.당뇨 is null) AND (b.당뇨_투약중 = 0 OR b.당뇨_투약중 is null))		
     AS 내당능장애,		
     (SELECT count(*)		
     FROM 혈액_소변_대변 a		
