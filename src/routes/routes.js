@@ -73,7 +73,7 @@ router.post('/xlsx', upload.single('file'), async (req, res) => {
 
 router.get('/HIGHBP', async (req, res) => {
     const data = await getHIGHBP();
-    console.log(data);
+    // console.log(data);
     res.send(
         data
     )
@@ -190,10 +190,10 @@ const getHIGHBP = async () => {
             connection.release();
             return rows;
         } catch(err) {
-            console.log(err);
+            // console.log(err);
         }
     } catch(err) {
-        console.log(err);
+        // console.log(err);
     }
 }
 
