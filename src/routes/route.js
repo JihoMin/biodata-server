@@ -7,6 +7,9 @@ const fs = require('fs');
 const stream = require('stream');
 let upload = multer();
 
+const db = require('../mockdb')
+const auth = require('../auth')
+
 const { MYSQL_URL, MYSQL_ID, MYSQL_PWD } = process.env;
 
 // create DB pool
@@ -18,6 +21,44 @@ var pool = mysql.createPool({
 });
 
 const router = express.Router();
+
+// authentication
+router.post('/login', async (req, res) => {
+    const {email, password} = req.body
+    console.log({email, password})
+    try{
+        const user = await db.findUser({email, password});
+        console.log(user)
+        if (!user || !user[0] || !user[0].email) return res.status(401).json({error: 'Login failure'})
+        
+        await db.createAccessLog({userId: user.id})
+        const accessToken = auth.signToken(user.id)
+        res.json({accessToken})
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+router.get('/home', async (req, res) => {
+    let user
+    try {
+      user = auth.verify(req.headers.authorization)
+    } catch (e) {
+  
+    }
+
+    console.log(user)
+    user = user ? await db.findUserById(user.id) : null
+    const name = user ? user.name : 'World'
+  
+    res.json({greeting: `Hello ${name}`})
+  })
+  
+router.get('/me', auth.ensureAuth(), async (req, res) => {
+    const user = await db.findUserById(req.user.id)
+    const accessLog = await db.findAccessLog({userId: user.id})
+    res.json({user, accessLog})
+})
 
 router.get('/', async (req, res) => {
     const collection = await getHIGHBP();

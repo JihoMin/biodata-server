@@ -1,7 +1,7 @@
 // 모듈 선언
 const mysql = require('mysql2/promise');
 const fs = require('fs');
-const Excel = require('exceljs');
+// const Excel = require('exceljs');
 const XlsxPopulate = require('xlsx-populate');
 
 // DB 연결
@@ -34,6 +34,8 @@ const createTableNames = async (sheet1) => {
 
     tableNames[3].push(3)
     tableNames[4].push(3)
+
+    console.log(tableNames)
     return tableNames
 }
 
