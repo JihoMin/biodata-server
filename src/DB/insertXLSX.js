@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 // 모듈 선언
 const mysql = require('mysql2/promise');
 const fs = require('fs');
@@ -31,14 +31,14 @@ const createTableNames = async (sheet1) => {
     }
     // 각 테이블의 attribute명이 위치한 row가 다르다.
     // tableNames 배열의 세번째 항목에 attr명들이 위치한 row를 넣는다.
-    // tableNames[0].push(2)
-    // tableNames[1].push(2)
-    // tableNames[2].push(2)
+    tableNames[0].push(2)
+    tableNames[1].push(2)
+    tableNames[2].push(2)
 
-    // tableNames[3].push(3)
-    // tableNames[4].push(3)
-    // tableNames[5].push(3)
-    // tableNames[6].push(3)
+    tableNames[3].push(3)
+    tableNames[4].push(3)
+    tableNames[5].push(3)
+    tableNames[6].push(3)
 
     console.log(tableNames)
     return tableNames
