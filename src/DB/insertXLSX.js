@@ -277,7 +277,7 @@ const makeInsertForm = async (usedSheet) => {
 
 const openXlsx = async (file) => {
     try{
-        console.log('hi')
+        console.log('file')
         XlsxPopulate.fromDataAsync(file, { password: "0406" })
             .then(workbook => {
                 const sheet1 = workbook.sheet(0);
