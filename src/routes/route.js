@@ -211,7 +211,7 @@ const getSNU = async () => {
         const connection = await pool.getConnection(async conn => conn);
         try{
             const [rows] = await connection.query(
-                `SELECT 문진.바코드, 문진.날짜, 고혈압, 당뇨, 당뇨병가족력, 암과거력, 약복용력, 여성호르몬제제_또는_경구피임제__복용한적_또는_현재복용중_여부, 내부_장기_맹장_제외__수술력, 음주량, 흡연, HBsAg, Anti_HIV, Anti_HCV
+                `SELECT 문진.바코드, 문진.날짜, 음주량, 흡연, HBsAg, Anti_HCV, WBC, RBC, HB, HCT
                 FROM 문진
                 JOIN 혈액_소변_대변
                 ON 문진.바코드 = 혈액_소변_대변.바코드 AND 문진.날짜 = 혈액_소변_대변.날짜;`
