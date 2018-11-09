@@ -12,9 +12,9 @@ const { MYSQL_URL, MYSQL_ID, MYSQL_PWD } = process.env;
 
 // create DB pool
 var pool = mysql.createPool({
-    host: MYSQL_URL,
-    user: MYSQL_ID,
-    password: MYSQL_PWD,
+    host: "biodatalab.czadlpaqcfqu.ap-northeast-2.rds.amazonaws.com",
+    user: "blab",
+    password: "biodatalab!",
     database: "서울대병원"
 });
 
@@ -48,25 +48,27 @@ router.get('/', (req, res) => {
 router.post('/', async (req,res) => {
     // var a = req.body.a;
     // var b = req.body.b;
-    const data = await getSNU();
-    // console.log(data);
+    try {
+        const data = await getSNU();
+        // console.log(data);
 
-    var a = data
-    var b = [['fsf','fsdf'],['fdfs','sdf']]
+        var a = data
+        var b = [['fsf','fsdf'],['fdfs','sdf']]
 
-    // console.log('a,b: ',a,b)
-    // console.log(process.cwd())
-    var dir = process.cwd()+'/src/rscripts/log_wrapper.R'
-    var cmd = 'Rscript ' + dir + " " + a + " " + b;
-
-
-    exec(cmd, (error, stdout, stderr) => {
-        if(error) {
-            console.log(error);
-            return;
-        }
-        res.send("<h2>Log<sub>" + a + "</sub>" + b + " = " + stdout + "</h2>");
-    } );
+        // console.log('a,b: ',a,b)
+        // console.log(process.cwd())
+        var dir = process.cwd()+'/src/rscripts/log_wrapper.R';
+        var cmd = 'Rscript ' + dir + " " + a + " " + b;
+        exec(cmd, (error, stdout, stderr) => {
+            if(error) {
+                console.log(error);
+                return;
+            }
+            console.log(stdout)
+        } );
+    } catch (err) {
+        console.log (err)
+    }
 });
 
 

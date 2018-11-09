@@ -123,7 +123,6 @@ router.get('/HIGHBP', async (req, res) => {
 router.get('/SNU', async (req, res) => {
     const data = await getSNU();
     console.log(data);
-    console.log(data.type());
     res.send(
         data
     )

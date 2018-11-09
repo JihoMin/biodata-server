@@ -12,6 +12,11 @@ print(dataset)
 dataset[dataset==99999]<-NA 
 data_p1 <- read_excel("/Users/minjiho/dev/vue/biodata-server/src/rscripts/histogram_ahn2.xlsx")
 
+args <- commandArgs(TRUE)
+# a <- as.double(args[1])
+# b <- as.double(args[2])
+print(args[1])
+
 # WEIGHT graph
 
 #### individual data_weight ####
