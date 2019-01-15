@@ -7,15 +7,19 @@ library(ggthemes)
 library(directlabels)
 library(reshape)
 
-dataset<- read_excel("/Users/minjiho/dev/vue/biodata-server/src/rscripts/Clinical_Data.xlsx")
+# dataset<- read_excel("/Users/minjiho/dev/vue/biodata-server/src/rscripts/Clinical_Data.xlsx")
+dataset<- read.csv("/Users/minjiho/dev/vue/biodata-server/src/rscripts/clinical.csv")
 print(dataset)
 dataset[dataset==99999]<-NA 
 data_p1 <- read_excel("/Users/minjiho/dev/vue/biodata-server/src/rscripts/histogram_ahn2.xlsx")
+# data_p1 <- read.csv("/Users/minjiho/dev/vue/biodata-server/src/rscripts/histogram.csv")
+# print(data_p1$AGE)
+print(data_p1)
 
-args <- commandArgs(TRUE)
-# a <- as.double(args[1])
-# b <- as.double(args[2])
-print(args[1])
+# args <- commandArgs(TRUE)
+# # a <- as.double(args[1])
+# # b <- as.double(args[2])
+# print(args[1])
 
 # WEIGHT graph
 
@@ -51,19 +55,19 @@ length(quantile_vector95) <- 51
 for (i in 1:51){
   df_weight <- dataset %>% filter(AGE == i+38) %>% select(WEIGHT)
   quantile_vector5[i] <- quantile(df_weight$WEIGHT, probs = c(0.05), na.rm = TRUE)
-  print(quantile_vector5[i])
+  # print(quantile_vector5[i])
 }
 
 for (i in 1:51){
   df_weight <- dataset %>% filter(AGE == i+38) %>% select(WEIGHT)
   quantile_vector50[i] <- quantile(df_weight$WEIGHT, probs = c(0.50), na.rm = TRUE)
-  print(quantile_vector50[i])
+  # print(quantile_vector50[i])
 }
 
 for (i in 1:51){
   df_weight <- dataset %>% filter(AGE == i+38) %>% select(WEIGHT)
   quantile_vector95[i] <- quantile(df_weight$WEIGHT, probs = c(0.95), na.rm = TRUE)
-  print(quantile_vector95[i])
+  # print(quantile_vector95[i])
 }
 
 df_quantile_vector <- data.frame(five = quantile_vector5, fifty = quantile_vector50, ninetyfive = quantile_vector95, age = c(39:89))
@@ -113,19 +117,19 @@ length(quantile_vector95) <- 51
 for (i in 1:51){
   df_bmi <- dataset %>% filter(AGE == i+38) %>% select(BMI)
   quantile_vector5[i] <- quantile(df_bmi$BMI, probs = c(0.05), na.rm = TRUE)
-  print(quantile_vector5[i])
+  # print(quantile_vector5[i])
 }
 
 for (i in 1:51){
   df_bmi <- dataset %>% filter(AGE == i+38) %>% select(BMI)
   quantile_vector50[i] <- quantile(df_bmi$BMI, probs = c(0.50), na.rm = TRUE)
-  print(quantile_vector50[i])
+  # print(quantile_vector50[i])
 }
 
 for (i in 1:51){
   df_bmi <- dataset %>% filter(AGE == i+38) %>% select(BMI)
   quantile_vector95[i] <- quantile(df_bmi$BMI, probs = c(0.95), na.rm = TRUE)
-  print(quantile_vector95[i])
+  # print(quantile_vector95[i])
 }
 
 df_quantile_vector <- data.frame(five = quantile_vector5, fifty = quantile_vector50, ninetyfive = quantile_vector95, age = c(39:89))
@@ -172,21 +176,21 @@ quantile_vector95 <- c(0)
 length(quantile_vector95) <- 51
 
 for (i in 1:51){
-  df_GLU0 <- dataset %>% filter(AGE == i+38) %>% select(GLU0)
-  quantile_vector5[i] <- quantile(df_GLU0$GLU0, probs = c(0.05), na.rm = TRUE)
-  print(quantile_vector5[i])
+  df_GLU0 <- dataset %>% filter(AGE == i+38) %>% select(GLU)
+  quantile_vector5[i] <- quantile(df_GLU0$GLU, probs = c(0.05), na.rm = TRUE)
+  # print(quantile_vector5[i])
 }
 
 for (i in 1:51){
-  df_GLU0 <- dataset %>% filter(AGE == i+38) %>% select(GLU0)
-  quantile_vector50[i] <- quantile(df_GLU0$GLU0, probs = c(0.50), na.rm = TRUE)
-  print(quantile_vector50[i])
+  df_GLU0 <- dataset %>% filter(AGE == i+38) %>% select(GLU)
+  quantile_vector50[i] <- quantile(df_GLU0$GLU, probs = c(0.50), na.rm = TRUE)
+  # print(quantile_vector50[i])
 }
 
 for (i in 1:51){
-  df_GLU0 <- dataset %>% filter(AGE == i+38) %>% select(GLU0)
-  quantile_vector95[i] <- quantile(df_GLU0$GLU0, probs = c(0.95), na.rm = TRUE)
-  print(quantile_vector95[i])
+  df_GLU0 <- dataset %>% filter(AGE == i+38) %>% select(GLU)
+  quantile_vector95[i] <- quantile(df_GLU0$GLU, probs = c(0.95), na.rm = TRUE)
+  # print(quantile_vector95[i])
 }
 
 df_quantile_vector <- data.frame(five = quantile_vector5, fifty = quantile_vector50, ninetyfive = quantile_vector95, age = c(39:89))
@@ -235,19 +239,19 @@ length(quantile_vector95) <- 51
 for (i in 1:51){
   df_SBP <- dataset %>% filter(AGE == i+38) %>% select(SBP)
   quantile_vector5[i] <- quantile(df_SBP$SBP, probs = c(0.05), na.rm = TRUE)
-  print(quantile_vector5[i])
+  # print(quantile_vector5[i])
 }
 
 for (i in 1:51){
   df_SBP <- dataset %>% filter(AGE == i+38) %>% select(SBP)
   quantile_vector50[i] <- quantile(df_SBP$SBP, probs = c(0.50), na.rm = TRUE)
-  print(quantile_vector50[i])
+  # print(quantile_vector50[i])
 }
 
 for (i in 1:51){
   df_SBP <- dataset %>% filter(AGE == i+38) %>% select(SBP)
   quantile_vector95[i] <- quantile(df_SBP$SBP, probs = c(0.95), na.rm = TRUE)
-  print(quantile_vector95[i])
+  # print(quantile_vector95[i])
 }
 
 df_quantile_vector <- data.frame(five = quantile_vector5, fifty = quantile_vector50, ninetyfive = quantile_vector95, age = c(39:89))
@@ -342,7 +346,7 @@ p_dbp
 
 ####individual data_CHOL ####
 age <- data_p1$AGE
-CHOL <- data_p1$CHOL
+CHOL <- data_p1$TCHL
 ##############
 
 quantile_vector5 <- c(0)
@@ -355,21 +359,21 @@ quantile_vector95 <- c(0)
 length(quantile_vector95) <- 51
 
 for (i in 1:51){
-  df_CHOL <- dataset %>% filter(AGE == i+38) %>% select(CHOL)
-  quantile_vector5[i] <- quantile(df_CHOL$CHOL, probs = c(0.05), na.rm = TRUE)
-  print(quantile_vector5[i])
+  df_CHOL <- dataset %>% filter(AGE == i+38) %>% select(TCHL)
+  quantile_vector5[i] <- quantile(df_CHOL$TCHL, probs = c(0.05), na.rm = TRUE)
+  # print(quantile_vector5[i])
 }
 
 for (i in 1:51){
-  df_CHOL <- dataset %>% filter(AGE == i+38) %>% select(CHOL)
-  quantile_vector50[i] <- quantile(df_CHOL$CHOL, probs = c(0.50), na.rm = TRUE)
-  print(quantile_vector50[i])
+  df_CHOL <- dataset %>% filter(AGE == i+38) %>% select(TCHL)
+  quantile_vector50[i] <- quantile(df_CHOL$TCHL, probs = c(0.50), na.rm = TRUE)
+  # print(quantile_vector50[i])
 }
 
 for (i in 1:51){
-  df_CHOL <- dataset %>% filter(AGE == i+38) %>% select(CHOL)
-  quantile_vector95[i] <- quantile(df_CHOL$CHOL, probs = c(0.95), na.rm = TRUE)
-  print(quantile_vector95[i])
+  df_CHOL <- dataset %>% filter(AGE == i+38) %>% select(TCHL)
+  quantile_vector95[i] <- quantile(df_CHOL$TCHL, probs = c(0.95), na.rm = TRUE)
+  # print(quantile_vector95[i])
 }
 
 df_quantile_vector <- data.frame(five = quantile_vector5, fifty = quantile_vector50, ninetyfive = quantile_vector95, age = c(39:89))
@@ -383,7 +387,7 @@ length(client) <- 51
 for (i in 1:51) {
   for (j in 1:11)
     if (df_quantile_vector$AGE[i] == data_p1$AGE[j]) {
-      client[i] <- data_p1$CHOL[j]
+      client[i] <- data_p1$TCHL[j]
     }
 }
 
@@ -418,19 +422,19 @@ length(quantile_vector95) <- 51
 for (i in 1:51){
   df_HDL <- dataset %>% filter(AGE == i+38) %>% select(HDL)
   quantile_vector5[i] <- quantile(df_HDL$HDL, probs = c(0.05), na.rm = TRUE)
-  print(quantile_vector5[i])
+  # print(quantile_vector5[i])
 }
 
 for (i in 1:51){
   df_HDL <- dataset %>% filter(AGE == i+38) %>% select(HDL)
   quantile_vector50[i] <- quantile(df_HDL$HDL, probs = c(0.50), na.rm = TRUE)
-  print(quantile_vector50[i])
+  # print(quantile_vector50[i])
 }
 
 for (i in 1:51){
   df_HDL <- dataset %>% filter(AGE == i+38) %>% select(HDL)
   quantile_vector95[i] <- quantile(df_HDL$HDL, probs = c(0.95), na.rm = TRUE)
-  print(quantile_vector95[i])
+  # print(quantile_vector95[i])
 }
 
 df_quantile_vector <- data.frame(five = quantile_vector5, fifty = quantile_vector50, ninetyfive = quantile_vector95, age = c(39:89))
@@ -480,7 +484,7 @@ length(quantile_vector95) <- 51
 for (i in 1:51){
   df_TG <- dataset %>% filter(AGE == i+38) %>% select(TG)
   quantile_vector5[i] <- quantile(df_TG$TG, probs = c(0.05), na.rm = TRUE)
-  print(quantile_vector5[i])
+  # print(quantile_vector5[i])
 }
 
 for (i in 1:51){

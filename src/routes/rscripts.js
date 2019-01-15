@@ -8,13 +8,17 @@ var exec = child_process.exec;
 
 const mysql = require("mysql2/promise");
 const { MYSQL_URL, MYSQL_ID, MYSQL_PWD } = process.env;
+var fs = require('fs');
+var R = require('r-script');
+const csv = require('fast-csv');
+
 
 
 // create DB pool
 var pool = mysql.createPool({
-    host: "biodatalab.czadlpaqcfqu.ap-northeast-2.rds.amazonaws.com",
-    user: "blab",
-    password: "biodatalab!",
+    host: MYSQL_URL,
+    user: MYSQL_ID,
+    password: MYSQL_PWD,
     database: "서울대병원"
 });
 
@@ -23,10 +27,11 @@ const getSNU = async () => {
         const connection = await pool.getConnection(async conn => conn);
         try{
             const [rows] = await connection.query(
-                `SELECT 문진.바코드, 문진.날짜, 고혈압, 당뇨, 당뇨병가족력, 암과거력, 약복용력, 여성호르몬제제_또는_경구피임제__복용한적_또는_현재복용중_여부, 내부_장기_맹장_제외__수술력, 음주량, 흡연, HBsAg, Anti_HIV, Anti_HCV
-                FROM 문진
-                JOIN 혈액_소변_대변
-                ON 문진.바코드 = 혈액_소변_대변.바코드 AND 문진.날짜 = 혈액_소변_대변.날짜;`
+                `SELECT CHOL, HDL_CHOL, TG, 체질량지수___Body_mass_index, GLUCOSE, 체중_Weight, SBP, DBP, 신장_Height, 나이
+                FROM 혈액_소변_대변 a	
+                    INNER JOIN 체지방측정 b ON a.바코드 = b.바코드 AND a.날짜 = b.날짜
+                    INNER JOIN 혈압측정 c ON a.바코드 = c.바코드 AND a.날짜 = c.날짜
+                    INNER JOIN 인적사항 d ON a.바코드 = c.바코드 AND a.날짜 = d.날짜;`
             );
             connection.release();
             // console.log(rows)
@@ -54,11 +59,72 @@ router.post('/', async (req,res) => {
 
         var a = data
         var b = [['fsf','fsdf'],['fdfs','sdf']]
-
+        // console.log(util.format(a));
         // console.log('a,b: ',a,b)
         // console.log(process.cwd())
+        var clinical_data = [];
+        var histogram_ahn = [];
+
+        clinical_data.push(["TCHL", "HDL", "TG", "BMI",	"GLU", "WEIGHT", "SBP",	"DBP", "HEIGHT", "AGE"]);
+        histogram_ahn.push(["AGE", "WEIGHT", "BMI", "SBP", "DBP", "GLU", "TCHL", "HDL", "TG"]);
+
+        for(var i=0; i<data.length; i++){
+            var row = data[i];
+            var clinical = [];
+            var histogram = [];
+            clinical.push(
+                        row.CHOL, 
+                        row.HDL_CHOL, 
+                        row.TG, 
+                        row.체질량지수___Body_mass_index, 
+                        row.GLUCOSE,
+                        row.체중_Weight,
+                        row.SBP,
+                        row.DBP,
+                        row.신장_Height,
+                        row.나이
+                    );
+            clinical_data.push(clinical);
+
+            histogram.push(
+                        row.나이,
+                        row.체중_Weight,
+                        row.체질량지수___Body_mass_index,
+                        row.SBP,
+                        row.DBP,
+                        row.GLUCOSE,
+                        row.CHOL, 
+                        row.HDL_CHOL,
+                        row.TG
+                    );
+            histogram_ahn.push(histogram);
+        }
+        var clinicalDir = process.cwd()+'/src/rscripts/clinical.csv'
+        var histogramDir = process.cwd()+'/src/rscripts/histogram.csv'
+        await csv.writeToPath(clinicalDir, 
+                        clinical_data, 
+                        {headers: true}
+                    ).on("finish", function() {
+                        console.log("done1");
+                    });
+
+        await csv.writeToPath(histogramDir,
+                        histogram_ahn,
+                        {headers: true}
+                    ).on("finish", function() {
+                        console.log("done2");
+                    })
+
+
+        // console.log(parsedData);
         var dir = process.cwd()+'/src/rscripts/log_wrapper.R';
-        var cmd = 'Rscript ' + dir + " " + a + " " + b;
+        // var out = R(dir)
+        //     .data(parsedData, 20)
+        //     .callSync();
+        
+        // console.log(out);
+        var cmd = 'Rscript ' + dir + " " + clinicalDir + " " + histogramDir;
+        // +" \"" + histogram_ahn + "\" ";
         exec(cmd, (error, stdout, stderr) => {
             if(error) {
                 console.log(error);
